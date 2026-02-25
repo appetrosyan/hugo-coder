@@ -1,4 +1,27 @@
 <li>
   <span class="date">{{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
   <a class="title" href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+  {{- with .GetTerms "tags" -}}
+    <span class="tags">
+      {{- range $index, $el := (first 5 .) -}}
+        {{- if gt $index 0 }}
+          <span class="separator">•</span>
+        {{- end }}
+        {{- $tagData := index site.Data.tags .LinkTitle -}}
+        {{- if and $tagData $tagData.gradient -}}
+          <span class="tag gradient-tag" style="{{ printf "--tag-gradient: %s" $tagData.gradient | safeCSS }}">
+            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </span>
+        {{- else if and $tagData $tagData.color -}}
+          <span class="tag" style="background-color: transparent; border: 1px solid {{ $tagData.color }};">
+            <a href="{{ .RelPermalink }}" style="color: {{ $tagData.color }}; opacity: 1;">{{ .LinkTitle }}</a>
+          </span>
+        {{- else -}}
+          <span class="tag">
+            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </span>
+        {{- end -}}
+      {{- end -}}
+    </span>
+  {{- end -}}
 </li>

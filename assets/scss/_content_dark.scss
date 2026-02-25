@@ -11,10 +11,20 @@
           a:active {
             color: $fg-color-dark;
           }
+
+          &.gradient-tag {
+            background-color: transparent;
+          }
         }
       }
     }
     .list {
+      ul:not(.pagination) {
+        li {
+          background-color: rgba($alt-bg-color-dark, 0.3);
+        }
+      }
+
       ul {
         li {
           .title {
@@ -23,6 +33,25 @@
             &:hover,
             &:focus {
               color: $link-color-dark;
+            }
+          }
+
+          .tags {
+            .tag {
+              background-color: $alt-bg-color-dark;
+
+              a {
+                color: $fg-color-dark;
+
+                &:hover,
+                &:focus {
+                  color: $link-color-dark;
+                }
+              }
+
+              &.gradient-tag {
+                background-color: transparent;
+              }
             }
           }
         }
